@@ -1,6 +1,4 @@
-# Ignore model files
-*.h5
-*.keras
+
 
 
 # Ignore environment files
