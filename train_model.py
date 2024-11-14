@@ -4,8 +4,6 @@
 # In[1]:
 
 
-pip install alpha_vantage
-
 
 # In[2]:
 
