@@ -15,13 +15,16 @@ API_KEY = os.getenv('ALPHA_API_KEY')  # Set a default if necessary
 
 
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
+
 
 app = Flask(__name__)
 # Allow requests from 'http://localhost:3000' only
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
-CORS(app)
+
+CORS(app, resources={r"/predict": {"origins": "*"}})
 
 # Load model and scaler
 model = tf.keras.models.load_model("lstm_stock_model.keras")
