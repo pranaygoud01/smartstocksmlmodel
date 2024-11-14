@@ -21,7 +21,7 @@ app = Flask(__name__)
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
-CORS(app, origins="https://smartstocks.vercel.app/")
+CORS(app)
 
 # Load model and scaler
 model = tf.keras.models.load_model("lstm_stock_model.keras")
