@@ -13,8 +13,14 @@ from alpha_vantage.timeseries import TimeSeries
 import os
 API_KEY = os.getenv('ALPHA_API_KEY')  # Set a default if necessary
 
+
+
+
 app = Flask(__name__)
 # Allow requests from 'http://localhost:3000' only
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False, use_reloader=False)
 CORS(app, origins="https://smartstocks.vercel.app/")
 
 # Load model and scaler
