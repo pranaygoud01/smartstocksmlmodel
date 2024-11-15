@@ -16,9 +16,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 app = Flask(__name__)
 
-
-CORS(app)
-
+CORS(app, origins=["https://smartstocks.vercel.app"])
 # Load model and scaler
 model = tf.keras.models.load_model("lstm_stock_model.keras")
 model.compile(optimizer='adam', loss='mean_squared_error')
