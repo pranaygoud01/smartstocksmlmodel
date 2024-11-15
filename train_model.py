@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-
-# In[2]:
 
 
 import numpy as np
@@ -18,7 +10,7 @@ import joblib
 import os
 
 # Alpha Vantage API setup
-API_KEY = "Q6TVUD7EYBHCZ689"
+API_KEY = os.getenv('ALPHA_API_KEY') 
 ts = TimeSeries(key=API_KEY, output_format='pandas')
 
 # Fetch data for a specific stock symbol (e.g., 'AAPL')
@@ -82,8 +74,6 @@ model.fit(x, y, epochs=10, batch_size=32)
 model.save("lstm_stock_model.keras")  # Changed to .keras format
 joblib.dump(scaler, "scaler.pkl")
 
-
-# In[ ]:
 
 
 
