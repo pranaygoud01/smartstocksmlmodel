@@ -14,9 +14,13 @@ API_KEY = os.getenv('ALPHA_API_KEY')  # Set a default if necessary
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 
-app = Flask(__name__)
 
-CORS(app, origins=["https://smartstocks.vercel.app/predict"])
+
+
+app = Flask(__name__)
+# Allow requests from 'https://smartstocks.vercel.app' only
+CORS(app, supports_credentials=True)
+
 # Load model and scaler
 model = tf.keras.models.load_model("lstm_stock_model.keras")
 model.compile(optimizer='adam', loss='mean_squared_error')
@@ -29,8 +33,11 @@ ts = TimeSeries(key=API_KEY, output_format='pandas')
 def home():
     return 'Flask Server is Running'
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['POST', 'OPTIONS'])
 def predict():
+    if request.method == 'OPTIONS':
+        # Respond to preflight CORS requests with a simple 200 status
+        return jsonify({'status': 'ok'}), 200
     try:
         symbol = request.json.get('symbol', 'AAPL').upper()
         if not symbol:
